@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Đà Nẵng Elite Transport | Hồ Văn Quang</title>
+    <style>
+        :root {
+            --accent: #00f2ff;
+            --sub-accent: #006aff;
+            --bg: #050505;
+            --card-bg: rgba(255, 255, 255, 0.03);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Plus Jakarta Sans', 'Segoe UI', sans-serif;
+            background: var(--bg);
+            color: white;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* Hiệu ứng nền khói mờ ảo */
+        .bg-glow {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: radial-gradient(circle at 50% -20%, #1e3a8a 0%, transparent 50%),
+                        radial-gradient(circle at 0% 100%, #1e1b4b 0%, transparent 40%);
+            z-index: -1;
+        }
+
+        /* Nút Gọi nổi đẳng cấp */
+        .floating-call {
+            position: fixed;
+            bottom: 40px;
+            right: 40px;
+            width: 70px;
+            height: 70px;
+            background: linear-gradient(135deg, #22c55e, #16a34a);
+            border-radius: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 30px;
+            color: white;
+            text-decoration: none;
+            box-shadow: 0 20px 40px rgba(34, 197, 94, 0.3);
+            z-index: 1000;
+            transition: 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        .floating-call:hover { transform: scale(1.1) rotate(10deg); }
+
+        header {
+            height: 70vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 0 20px;
+        }
+
+        .badge {
+            background: rgba(0, 242, 255, 0.1);
+            color: var(--accent);
+            padding: 8px 20px;
+            border-radius: 100px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            letter-spacing: 2px;
+            margin-bottom: 20px;
+            border: 1px solid rgba(0, 242, 255, 0.2);
+            animation: fadeIn 1s ease;
+        }
+
+        header h1 {
+            font-size: 5.5rem;
+            line-height: 1.1;
+            font-weight: 800;
+            margin-bottom: 20px;
+            background: linear-gradient(to bottom, #fff 30%, #666);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        header p {
+            max-width: 600px;
+            font-size: 1.2rem;
+            color: #94a3b8;
+        }
+
+        .container {
+            max-width: 1300px;
+            margin: 0 auto 100px;
+            padding: 0 40px;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        /* Card thiết kế mới */
+        .card {
+            position: relative;
+            background: var(--card-bg);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 32px;
+            padding: 50px 35px;
+            transition: 0.4s;
+            overflow: hidden;
+            backdrop-filter: blur(20px);
+        }
+
+        .card:hover {
+            border-color: rgba(0, 242, 255, 0.4);
+            transform: translateY(-10px);
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        /* Hiệu ứng lướt sáng khi hover */
+        .card::after {
+            content: "";
+            position: absolute;
+            top: 0; left: -100%;
+            width: 100%; height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.05), transparent);
+            transition: 0.6s;
+        }
+        .card:hover::after { left: 100%; }
+
+        .icon-wrap {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #1e293b, #0f172a);
+            border-radius: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            margin-bottom: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .card h3 {
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+
+        .card p {
+            color: #94a3b8;
+            font-size: 1rem;
+            margin-bottom: 35px;
+            height: 60px;
+        }
+
+        .btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            width: 100%;
+            padding: 18px;
+            background: white;
+            color: black;
+            text-decoration: none;
+            border-radius: 18px;
+            font-weight: 700;
+            transition: 0.3s;
+        }
+
+        .btn:hover {
+            background: var(--accent);
+            box-shadow: 0 0 30px rgba(0, 242, 255, 0.4);
+        }
+
+        footer {
+            padding: 100px 40px;
+            background: #000;
+            text-align: center;
+            border-top: 1px solid #111;
+        }
+
+        .footer-logo {
+            font-size: 2.5rem;
+            font-weight: 800;
+            letter-spacing: -2px;
+            margin-bottom: 20px;
+        }
+
+        .contact-info {
+            color: var(--accent);
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 40px;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @media (max-width: 768px) {
+            header h1 { font-size: 3rem; }
+            .container { padding: 0 20px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="bg-glow"></div>
+
+    <a href="tel:0787549536" class="floating-call">📞</a>
+
+    <header>
+        <div class="badge">DỊCH VỤ</div></div>
+        <h1>ĐÀ NẴNG<br>CITY</h1>
+        <p>Hồ Văn Quang cung cấp giải pháp vận tải và du lịch toàn diện tại Đà Nẵng với chất lượng 5 sao.</p>
+    </header>
+
+    <div class="container">
+        <div class="grid">
+
+            <div class="card" style="animation: fadeIn 0.5s ease backwards;">
+                <div class="icon-wrap">🛵</div>
+                <h3>Thuê Xe Máy</h3>
+                <p> Giao tận nơi miễn phí, thủ tục chỉ 1 phút.</p>
+                <a href="https://zalo.me/0787549536" target="_blank" class="btn">ĐẶT DỊCH VỤ →</a>
+            </div>
+
+            <div class="card" style="animation: fadeIn 0.5s ease 0.2s backwards;">
+                <div class="icon-wrap">🚚</div>
+                <h3>Vận Chuyển</h3>
+                <p>Chuyên chở Nhanh như chớp, an toàn tuyệt đối, uy tín 100%. Phục vụ mọi lúc mọi nơi tại Đà Nẵng và Quảng Nam.</p>
+                <a href="https://zalo.me/0787549536" target="_blank" class="btn">NHẬN BÁO GIÁ →</a>
+            </div>
+
+            <div class="card" style="animation: fadeIn 0.5s ease 0.4s backwards;">
+                <div class="icon-wrap">🚗</div>
+                <h3>Taxi & Grab</h3>
+                <p>Đón tiễn sân bay. Tài xế tận tâm, Đúng Giờ.</p>
+                <a href="https://zalo.me/0787549536" target="_blank" class="btn">GỌI XE NGAY →</a>
+            </div>
+
+            <div class="card" style="animation: fadeIn 0.5s ease 0.6s backwards;">
+                <div class="icon-wrap">🗺️</div>
+                <h3>khám phá</h3>
+                <p>Thiết kế lịch trình riêng khám phá Hội An, Bà Nà Hills, Sơn Trà theo phong cách thiên nhiên .</p>
+                <a href="https://zalo.me/0787549536" target="_blank" class="btn">KHÁM PHÁ →</a>
+            </div>
+
+        </div>
+    </div>
+
+    <footer>
+        <div class="footer-logo">HỒ VĂN QUANG</div>
+        <div class="contact-info">HOTLINE: 0787.549.536</div>
+        <p style="color: #444; font-size: 0.9rem;">© 2026 .</p>
+    </footer>
+
+</body>
+</html>
